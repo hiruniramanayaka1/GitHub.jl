@@ -20,6 +20,13 @@ jobs:
           version: '1'
           arch: ${{ runner.arch }}
         if: steps.julia_in_path.outcome != 'success'
+      - name: Cache Julia package depot
+        uses: actions/cache@v4
+        with:
+          path: ~/.julia
+          key: ${{ runner.os }}-julia-v1
+          restore-keys: |
+            ${{ runner.os }}-julia-v1-
       - name: "Add the General registry via Git"
         run: |
           import Pkg
